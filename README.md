@@ -2,6 +2,8 @@
 
 Interpreter built on Java that can handle basic arithmetic operations
 
+.txt file is used as the interface for the user,(for current project text file placed in folder)
+
 Operations supported:
 read-take variable input from user
 print-display output
