@@ -23,5 +23,9 @@ y=3
 print x*y
 output: 9
 
+Example screen shots
+
 ![Screenshot](Interpreter1.png)
+![Screenshot](Interpreter2.png)
+![Screenshot](Interpreter-Error.png)
 
