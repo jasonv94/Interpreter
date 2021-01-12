@@ -6,10 +6,10 @@ Operations supported:
 read-take variable input from user
 print-display output
 
-- + addition
-- - subtraction
-- / division
-- % modulo
+- (+) addition
+- (-)subtraction
+- (/)division
+- (%) modulo
 
 - () brackets used for order of operations
 
