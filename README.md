@@ -15,7 +15,7 @@ print-display output
 
 - () brackets used for order of operations
 
-All other inputs considered syntax errors
+All other inputs/operations considered syntax errors
 
 Variables can be assigned similair to that of a programming language
 i.e
