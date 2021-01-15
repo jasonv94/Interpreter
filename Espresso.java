@@ -28,8 +28,10 @@ public class Espresso {
 			return false;
 		}
 	}
-	
+
 	static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+	
+	//read through file replace all spaces evaluate statements on lines
 	public void fileRead(String message) throws NumberFormatException, IOException, SyntaxError {
 			SyntaxError exc=new SyntaxError();
 			Evaluation evaluate = new Evaluation();
