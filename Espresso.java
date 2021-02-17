@@ -44,7 +44,14 @@ public class Espresso {
 			
 			if(re.contains("read")) {
 				System.out.println("Enter a value for "+re.charAt(4));
-				int value=Integer.valueOf(reader.readLine());
+				int value = 0;
+				try {
+					value=Integer.valueOf(reader.readLine());
+				}catch(Exception e) {
+					System.out.println("Value must be numeric");
+					System.exit(0);
+				}
+				
 				
 				evaluate.variable_table[re.charAt(4)].setValue(value);
 			}else if(re.contains("=")) {
