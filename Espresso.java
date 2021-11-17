@@ -15,7 +15,7 @@ public class Espresso {
 	
 	public  String equal_output;
 	public  String print_output;
-	public  String print_output2;
+	public  String print_output_final;
 	/**
 	 * 
 	 * @param value
@@ -28,10 +28,8 @@ public class Espresso {
 			return false;
 		}
 	}
-
-	static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 	
-	//read through file replace all spaces evaluate statements on lines
+	static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 	public void fileRead(String message) throws NumberFormatException, IOException, SyntaxError {
 			SyntaxError exc=new SyntaxError();
 			Evaluation evaluate = new Evaluation();
@@ -40,10 +38,10 @@ public class Espresso {
 			int lineNo=0;
 			while(sc.hasNext()) {
 			++lineNo;
-			String re=sc.nextLine().replaceAll(" ", "");
+			String readLine=sc.nextLine().replaceAll(" ", "");
 			
-			if(re.contains("read")) {
-				System.out.println("Enter a value for "+re.charAt(4));
+			if(readLine.contains("read")) {
+				System.out.println("Enter a value for "+readLine.charAt(4));
 				int value = 0;
 				try {
 					value=Integer.valueOf(reader.readLine());
@@ -51,61 +49,69 @@ public class Espresso {
 					System.out.println("Value must be numeric");
 					System.exit(0);
 				}
+			    
 				
 				
-				evaluate.variable_table[re.charAt(4)].setValue(value);
-			}else if(re.contains("=")) {
-				if(re.charAt(1)!='='||Character.isDigit(re.charAt(0))) {
-					System.out.println(re);///ensure only single variable to take values
+				
+				evaluate.variable_table[readLine.charAt(4)].setValue(value);
+			}else if(readLine.contains("=")) {
+				if(readLine.charAt(1)!='='||Character.isDigit(readLine.charAt(0))) {
+					System.out.println(readLine);///ensure only single variable to take values
 					System.out.println("ERROR ONLY SINGLE VARIABLE ALLOWED");
 					System.exit(0);
 				}
 				
 				equal_output="";
-				if(isNumeric(re)) {/////if only numeric values i.e x=2+2
-					for(int j=2;j<re.length();j++) {
-					equal_output+=re.charAt(j);
+				
+				//start at index 2 as two account for space for first value and equals sign
+				
+				if(isNumeric(readLine)) {/////if only numeric values i.e x=2+2
+					for(int j=2;j<readLine.length();j++) {
+					equal_output+=readLine.charAt(j);
 					}
 					int another=Integer.parseInt(equal_output);
-					evaluate.variable_table[re.charAt(0)].setValue(another);
+					evaluate.variable_table[readLine.charAt(0)].setValue(another);
 				}else {
-				//start at index 2 as two account for space for first value and equals sign
-				for(int i=2;i<re.length();i++) {
-					if(Character.isAlphabetic(re.charAt(i))){
+				
+				
+
+				for(int i=2;i<readLine.length();i++) {
+					if(Character.isAlphabetic(readLine.charAt(i))){
 					
 					try {
-						int conv = evaluate.variable_table[re.charAt(i)].getValue();
+						int conv = evaluate.variable_table[readLine.charAt(i)].getValue();
 						equal_output+=Integer.toString(conv);
 					} catch (UndefinedVariableException e) {
-						System.out.println("Error at line "+lineNo+" "+" "+re+" "+re.charAt(i)+" "+e.getMessage());
+						System.out.println("Error at line "+lineNo+" "+" "+readLine+" "+readLine.charAt(i)+" "+e.getMessage());
 						System.exit(0);
 					}
 					
 				}else{
 					
-					equal_output+=re.charAt(i);
+					equal_output+=readLine.charAt(i);
 				}
 			}	
-			 evaluate.variable_table[re.charAt(0)].setValue(evaluate.evaluatePostfix(evaluate.infixToPostfix(equal_output)));
+			 evaluate.variable_table[readLine.charAt(0)].setValue(evaluate.evaluatePostfix(evaluate.infixToPostfix(equal_output)));
 				} 
-			}else if(re.contains("print")) {
+			}else if(readLine.contains("print")) {
 				print_output="";
 				//start at index 5 to account for the letters of print values are 
-				for(int i=5;i<re.length();i++) {
-				print_output+=re.charAt(i);
+
+				for(int i=5;i<readLine.length();i++) {
+				print_output+=readLine.charAt(i);
 			    
 			    }
-				print_output2=evaluate.infixToPostfix(print_output);
-				int final_result=evaluate.evaluatePostfix(print_output2);
+				print_output_final=evaluate.infixToPostfix(print_output);
+				int final_result=evaluate.evaluatePostfix(print_output_final);
 				if(final_result==Integer.MIN_VALUE) {
-					System.out.println(exc.getMessage()+ " "+re+" on line "+lineNo);
+					System.out.println(exc.getMessage()+ " "+readLine+" on line "+lineNo);
 					System.exit(0);
 				}
 				System.out.println(final_result);
 					
 			}else {
 				
-				System.out.println(lineNo+ " "+ exc.getMessage()+" "+re+" is not a valid parameter");
+				System.out.println(lineNo+ " "+ exc.getMessage()+" "+readLine+" is not a valid parameter");
 			
 			}
 			
@@ -117,4 +123,5 @@ public class Espresso {
 	
 			
 		}
+	
 }
