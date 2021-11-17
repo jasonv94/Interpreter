@@ -35,8 +35,6 @@ public class Evaluation {
 	        case '/':
 	        return 2; 
 
-	        case '%': 
-	        return 3;    
 	        } 
 	        
 	        return Integer.MIN_VALUE;	    
@@ -52,11 +50,10 @@ public class Evaluation {
 	 * @param infix
 	 * @return result into postfix expression
 	 */
-     public String infixToPostfix(String infix) throws SyntaxError{
+     public String infixToPostfix(String infix) {
 
         String result = "";
         Stack<Character> pfix = new Stack<Character>();
-        
         for(int i=0;i<infix.length();i++) {
         	char value=infix.charAt(i);
         	if(Character.isLetterOrDigit(value)) {
@@ -67,12 +64,9 @@ public class Evaluation {
      
         	}
         	else if(value==')') {
-        		
         		while(pfix.peek()!='(') {
-        			
         			result+=pfix.pop();
         		}
-        		
         		pfix.pop();
         	}else {
         		while(!pfix.isEmpty()&& precedence(value) <= precedence(pfix.peek())&& (pfix.peek()!='(')) {
@@ -101,9 +95,7 @@ public class Evaluation {
     	 }
     	 else if(a=='/') {
     	 	return c/b;
-    	 }else if(a=='%') {
-     	 	return c%b;
-     	 }
+    	 }
     	 else
     	 System.out.println();
     	 return Integer.MIN_VALUE;
@@ -117,9 +109,8 @@ public class Evaluation {
       * @param result value in postfix
       * @return
       */
-      int evaluatePostfix(String result) throws SyntaxError{
+      int evaluatePostfix(String result) {
     	Stack<Integer> table=new Stack<Integer>();
-    	
     	
     	int final_value;
     	for(int i=0;i<result.length();i++) {
@@ -147,18 +138,9 @@ public class Evaluation {
     			 table.push(res);	
     		}	
     	}
-
-    	 try {
-    		 final_value=table.pop();
-    		    
-        	 return final_value; 
-    	 }catch(Exception e) {
-    		 System.out.println("Unitialized variable");
-    		 return 0;
-    	 }
-    	
     	 
-    	 
+    	 final_value=table.pop();
+    	 return final_value;
     	 
     	 
      }
