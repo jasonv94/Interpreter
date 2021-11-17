@@ -69,6 +69,7 @@ public class Espresso {
 					int another=Integer.parseInt(equal_output);
 					evaluate.variable_table[re.charAt(0)].setValue(another);
 				}else {
+				//start at index 2 as two account for space for first value and equals sign
 				for(int i=2;i<re.length();i++) {
 					if(Character.isAlphabetic(re.charAt(i))){
 					
@@ -89,6 +90,7 @@ public class Espresso {
 				} 
 			}else if(re.contains("print")) {
 				print_output="";
+				//start at index 5 to account for the letters of print values are 
 				for(int i=5;i<re.length();i++) {
 				print_output+=re.charAt(i);
 			    
